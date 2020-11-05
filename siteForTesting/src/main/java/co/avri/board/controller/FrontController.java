@@ -87,10 +87,14 @@ public class FrontController extends HttpServlet {
 		// 명령이 수행되고나서 보여줄 페이지를 선택.. 돌려질 뷰페이지 찾는것
 		
 		if(viewPage != null) {
+			if(viewPage.startsWith("redirect")) {
+				response.sendRedirect(viewPage.substring(9));
+			} else { // 아니라면 포워드
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			// 그리고 그 페이지를 돌려주는것.. 선택된 페이지로 가기
 			// getRequestDispatcher에 viewPage값을 실어둠
 			dispatcher.forward(request, response);
+			}
 		}
 	}
 }
